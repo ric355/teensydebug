@@ -156,11 +156,16 @@ void loop()
       //Check for any CAN comms requiring action 
       #if defined(CANSerial_AVAILABLE)
         //if can or secondary serial interface is enabled then check for requests.
+        currentStatus.canin[0] = 100;
         if (configPage9.enable_secondarySerial == 1)  //secondary serial interface enabled
         {
+        currentStatus.canin[1] = 100;
+
           if ( ((mainLoopCount & 31) == 1) or (CANSerial.available() > SERIAL_BUFFER_THRESHOLD) )
           {
-            if (CANSerial.available() > 0)  { secondserial_Command(); }
+            if (CANSerial.available() > 0)  { 
+        currentStatus.canin[2] = 100;
+              secondserial_Command(); }
           }
         }
       #endif

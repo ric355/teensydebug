@@ -124,6 +124,7 @@ void secondserial_Command()
         break;
 
     case 'n': // sends the bytes of realtime values from the NEW CAN list
+        currentStatus.canin[3] = 100;
         sendcanValues(0, NEW_CAN_PACKET_SIZE, 0x32, 1); //send values to serial3
         break;
 
@@ -197,6 +198,8 @@ void sendcanValues(uint16_t offset, uint16_t packetLength, byte cmd, byte portTy
           }
         else if (cmd == 0x32)
           {
+        currentStatus.canin[4] = 100;
+
            CANSerial.write("n");                       // confirm command type
            CANSerial.write(cmd);                       // send command type  , 0x32 (dec50) is ascii '0'
            CANSerial.write(NEW_CAN_PACKET_SIZE);       // send the packet size the receiving device should expect.
@@ -346,6 +349,8 @@ void sendcanValues(uint16_t offset, uint16_t packetLength, byte cmd, byte portTy
 
   for(byte x=0; x<packetLength; x++)
   {
+            currentStatus.canin[5] = 100;
+
       if (portType == 1){ CANSerial.write(fullStatus[offset+x]); }
       else if (portType == 2)
       {
