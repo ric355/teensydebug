@@ -43,7 +43,7 @@ bool canCmdPending = false;
     HardwareSerial &CANSerial = Serial2;
   #endif
 #elif defined(CORE_TEENSY)
-  HardwareSerial &CANSerial = Serial2;
+  HardwareSerial &CANSerial = Serial1;
 #endif
 
 void secondserial_Command()
