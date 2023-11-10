@@ -109,9 +109,6 @@ void initialiseAll()
   #endif
 
     Serial.begin(115200);
-    #if defined(CANSerial_AVAILABLE)
-      if (configPage9.enable_secondarySerial == 1) { CANSerial.begin(115200); }
-    #endif
 
     //Repoint the 2D table structs to the config pages that were just loaded
     taeTable.valueSize = SIZE_BYTE; //Set this table to use byte values
@@ -1213,6 +1210,10 @@ void initialiseAll()
 
     initialisationComplete = true;
     digitalWrite(LED_BUILTIN, HIGH);
+
+    #if defined(CANSerial_AVAILABLE)
+      if (configPage9.enable_secondarySerial == 1) { CANSerial.begin(115200); }
+    #endif
 }
 /** Set board / microcontroller specific pin mappings / assignments.
  * The boardID is switch-case compared against raw boardID integers (not enum or defined label, and probably no need for that either)
